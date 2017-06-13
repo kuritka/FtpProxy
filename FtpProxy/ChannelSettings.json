@@ -2,34 +2,34 @@
     "name": "ftp proxy - channelsettings",
 
     "channelsettings": 
-    {
-        "local": [
+        [
             {
-                "name": "paragraph58",
-                "in": "../Uploads/Reghub/In",
-                "out": "../Uploads/Reghub/Out"
+                "from": {
+                    "type": "local",
+                    "name": "paragraph58",
+                    "path": "../Uploads/Reghub/In"
+                },
+                "to": {
+                    "type": "ftp",
+                    "name": "nca_1",
+                    "host": "localhost",
+                    "port": 3128,
+                    "path": "/response"
+                }
             },
             {
-                "name": "reghub",
-                "in": "../Uploads/Reghub/In",
-                "out": "../Uploads/Reghub/Out"
+                "from": {
+                    "type": "ftp",
+                    "name": "nca_1",
+                    "host": "localhost",
+                    "port": 3128,
+                    "path": "/response"
+                },
+                "to": {
+                    "type": "local",
+                    "name": "reghub",
+                    "path": "../Uploads/Reghub/In"
+                }
             }
-        ],
-        "ftp": [
-            {
-                "name": "nca_1",
-                "host": "localhost",
-                "port": 3128,
-                "in": "/response",
-                "out": "/incomming"
-            },
-            {
-                "name": "nca_2",
-                "host": "localhost",
-                "port": 3128,
-                "in": "/response",
-                "out": "/incomming"
-            }
-        ]  
-    }
+        ]    
 }

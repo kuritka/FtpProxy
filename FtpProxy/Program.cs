@@ -17,8 +17,6 @@ namespace FtpProxy
 
             var file = Path.GetTempFileName();
             
-            System.Console.WriteLine(configuration.ChannelSettings.Ftp.ToList()[1].Host);
-
             Console.WriteLine(file);
         }
     }

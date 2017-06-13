@@ -1,0 +1,21 @@
+{
+    "name": "ftp proxy - channelsettings",
+
+    "channelsettings": 
+        [
+            {
+                "from": {
+                    "type": "local",
+                    "name": "PRODparagraph58",
+                    "path": "../Uploads/PRD/In"
+                },
+                "to": {
+                    "type": "ftp",
+                    "name": "nca_1",
+                    "host": "PROD",
+                    "port": 3128,
+                    "path": "/response"
+                }
+            }
+        ]    
+}

@@ -9,8 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170427-09" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.17" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.1.17" />
-    <PackageReference Include="..\FtpProxy\FtpProxy.csproj"/>
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.17" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FtpProxy\FtpProxy.csproj" />
   </ItemGroup>
 
 </Project>

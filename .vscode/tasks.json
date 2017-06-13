@@ -6,12 +6,14 @@
     "isShellCommand": true,
     "args": [],
     "tasks": [
+        //ctrl + alt + b
         {
             "taskName": "build",
             "args": [  "${workspaceRoot}/FtpProxy/FtpProxy.csproj" ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         },
+        //ctrl + alt + p
         {
             "taskName": "test",
             "args": [ "${workspaceRoot}/FtpProxy.Tests/FtpProxy.Tests.csproj" ],

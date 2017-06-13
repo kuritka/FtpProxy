@@ -11,9 +11,12 @@ namespace FtpProxy.Infrastructure.Configuration
     {
         private  IEnumerable<ConfigChannelSettings> _channelSettings;
 
+        private IConfigurationFactory _configurationFactory;
+
         public Configuration()
         {
-            BuildConfiguration();
+            _configurationFactory = new ConfigurationFactory();
+            BuildConfiguration();            
         }
 
         public IEnumerable<ConfigChannelSettings> ChannelSettings => _channelSettings;
@@ -21,12 +24,11 @@ namespace FtpProxy.Infrastructure.Configuration
         private void BuildConfiguration()
         {
             //use the factory
-            var environment = Environment.GetEnvironmentVariable("PARAGRAPH_58");
+            var configFileName = _configurationFactory.GetConfigFileName();
             var configurationBuilder = new ConfigurationBuilder()            
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddInMemoryCollection(_defalutValues)
-            .AddJsonFile("ChannelSettings.json", optional:true)
-            .AddJsonFile($"ChannelSettings.{environment}.json", optional:true, reloadOnChange:false);
+            .AddJsonFile($"{configFileName}", optional:false);
             //.AddEnvironmentVariables();
 
             var configuration = configurationBuilder.Build();

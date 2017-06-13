@@ -6,8 +6,7 @@
             {
                 "from": {
                     "type": "local",
-                    "name": "PRODparagraph58",
-                    "path": "../Uploads/PRD/In"
+                    "name": "PRODparagraph58"                  
                 },
                 "to": {
                     "type": "ftp",

@@ -13,9 +13,10 @@ namespace FtpProxy.Infrastructure.Configuration
 
         private IConfigurationFactory _configurationFactory;
 
-        public Configuration()
+        public Configuration(IConfigurationFactory configurationFactory)
         {
-            _configurationFactory = new ConfigurationFactory();
+            if(configurationFactory == null) throw new ArgumentNullException($"{configurationFactory}");
+            _configurationFactory = configurationFactory;
             BuildConfiguration();            
         }
 

@@ -14,12 +14,18 @@ namespace FtpProxy
             _services = new ServiceCollection();
         }
 
-        public IServiceProvider SetupServiceProvider()
+        public IServiceProvider ConfigureServices()
         {
             _services.AddTransient<IConfigurationFactory,ConfigurationFactory>();
             _services.AddSingleton<FtpProxy.Infrastructure.Configuration.IConfiguration,Infrastructure.Configuration.Configuration>();
             var serviceProvider = _services.BuildServiceProvider();
             return serviceProvider;
+        }
+
+
+        public void Configure()
+        {
+            
         }
 
         

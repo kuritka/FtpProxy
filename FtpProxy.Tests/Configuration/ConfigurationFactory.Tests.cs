@@ -8,8 +8,6 @@ namespace FtpProxy.Tests
     [TestClass]
     public class ConfigurationFactoryTest
     {
-
-
         [TestMethod]
         public void TestPROD()
         {
@@ -30,17 +28,24 @@ namespace FtpProxy.Tests
 
         private string TestEnvironment(string variable)
         {
-            IConfigurationFactory configurationFactory = new ConfigurationFactory();
-            
-            System.Environment.SetEnvironmentVariable(ConfigurationFactory.DefaultEnvironmentVariable,variable);
+            //https://msdn.microsoft.com/en-us/library/77zkk0b6(v=vs.110).aspx
 
-            var configFileName = configurationFactory.GetConfigFileName();
+            var tempVariable = System.Environment.GetEnvironmentVariable(ConfigurationFactory.DefaultEnvironmentVariable);
+
+            try{
             
-            return configFileName;
+                IConfigurationFactory configurationFactory = new ConfigurationFactory();                        
+
+                System.Environment.SetEnvironmentVariable(ConfigurationFactory.DefaultEnvironmentVariable,variable);
+
+                var configFileName = configurationFactory.GetConfigFileName();
+
+                return configFileName;
+            } 
+            finally
+            {
+                System.Environment.SetEnvironmentVariable(ConfigurationFactory.DefaultEnvironmentVariable,tempVariable);
+            }                        
         }
-
-
     }
-
-
 }

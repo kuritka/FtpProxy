@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FtpProxy.Infrastructure.Jobs;
+using Hangfire;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,22 +18,23 @@ namespace FtpProxy
 
         static void Main(string[] args)
         {
-
-           var serviceProvider = new Startup().ConfigureServices();
-
-           var configuration = serviceProvider.GetService<FtpProxy.Infrastructure.Configuration.IConfiguration>();
-
-           var settings = configuration.ChannelSettings;
-
-           foreach (var channel in settings)
-           {
-                System.Console.WriteLine(string.Format("{0} -> {1}",channel.From.Path, channel.To.Path));
-           }
-
-           var file = Path.GetTempFileName();
-            
-           Console.WriteLine(file);
+             BuildWebHost(args).Run();
+             
+             Console.WriteLine("Ftp Proxy started....");
         }
+
+        public static IWebHost BuildWebHost(string[] args) => 
+            WebHost.CreateDefaultBuilder(args).UseStartup<Startup>().Build();
+
+    }
+
+
+
+    public static class WebHostExtensions
+    {
+            public static void RunJobs(this IWebHost webhost){
+                RecurringJob.AddOrUpdate(() => System.Console.WriteLine("Simple!"), Cron.Minutely);       
+            }
     }
 }
 

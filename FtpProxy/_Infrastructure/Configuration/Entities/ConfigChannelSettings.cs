@@ -15,6 +15,7 @@ namespace FtpProxy.Infrastructure.Configuration.Entities
                 public string Path {get; set;}
                 public string Host {get; set;}
                 public int Port {get; set;}
+              
         } 
 
         public ConfigSettings From {get; set;}

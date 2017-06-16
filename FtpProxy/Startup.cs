@@ -20,24 +20,33 @@ namespace FtpProxy
         {
             services.AddTransient<IConfigurationFactory,ConfigurationFactory>();
             services.AddSingleton<FtpProxy.Infrastructure.Configuration.IConfiguration,Infrastructure.Configuration.Configuration>();
+            //services.AddTransient<IJob>(x => new CheckChannelsJob( x.GetRequiredService<FtpProxy.Infrastructure.Configuration.IConfiguration>().ChannelSettings ));
+            services.AddTransient<IJob,CheckChannelsJob>();
+
             services.AddHangfire(c => c.UseMemoryStorage());
             services.BuildServiceProvider();
         }
 
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             var configuration = app.ApplicationServices.GetService<FtpProxy.Infrastructure.Configuration.IConfiguration>();
             
             var settings = configuration.ChannelSettings;
 
-            app.UseHangfireServer();
+            var x = app.UseHangfireServer();
+            
 
             app.UseHangfireDashboard();
           
             app.Run(async context => await context.Response.WriteAsync("try http://localhost:5000/hangfire"));
 
-            RecurringJob.AddOrUpdate<CheckChannelsJob>("check-channels",d => d.Execute() , Cron.Minutely);
+            RecurringJob.AddOrUpdate<CheckChannelsJob>(
+                 "check-channels",
+                 d => app.ApplicationServices.GetService<CheckChannelsJob>().Execute() 
+                ,Cron.Minutely);
+            
+            RecurringJob.Trigger("check-channels");
         }
     }
 }
